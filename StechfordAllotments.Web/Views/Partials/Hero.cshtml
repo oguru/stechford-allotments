@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var heroImg = Model.Value<IPublishedContent>("heroImage")?.Url ?? "";
+    @*var heroClass = .Concat(Model.Name, "-hero);*@
+}
+
+
+<div class="
+     hero-img
+     jumbotron
+     jumbotron-fluid
+     my-2
+     @(Model.Name == "Home" ? "flex-grow-1" : null)"
+     style="background-image:url('@heroImg')">
+    <div class="container">
+        <h1>@Model.Value("heroTitle")</h1>
+        <h4>@Model.Value("heroSubtitle")</h4>
+        <p class="mt-5">@Model.Value("homepageText")</p>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+.article-card {
+    min-width: 280px;
+}
+
+/*@media (min-width: 576px) {
+    .article-card {
+        min-width: 400px;
+        width: 47%;
+    }
+}*/
+
+/*.article-card {
+    width: 90%;
+    margin: 12px 5%;
+}
+
+
+@media (min-width: 768px) {
+    .article-card {
+        width: 31.333%;
+        margin: 16px 1%;
+    }
+}
+
+@media (min-width: 992px) {
+    .article-card {
+        width: 23%;
+        margin: 20px 1%;
+        flex: 1;
+    }
+}*/
+
+
+body {
+/*    display: flex;
+    flex-direction: column;*/
+    min-height: 100vh;
+}
+
+.hero-img {
+    background: no-repeat center center;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+    color: white;
+}
+
+.hero-img > .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.hero-img > .inner {
+    position: relative;
+    z-index: 2;
+}
+
+/*#home-hero {
+    flex: 1;
+}*/
+
+.info-item-text {
+    font-size: 0.9rem;
+}
+
+#nav-styles {
+    background-color: #002d00;
+}
+
+.plot-btn {
+    width: 110px;
+    text-align: center;
+}
+
+#plot-area {
+    width: 100%;
+    min-height: 200px;
+}
+
+.plot-car {
+    object-fit: fill;
+    width: 25%;
+    height: 20%;
+}
+
+.plot-small {
+    width: 100%;
+    height: 100%;
+    background-color: #45b4f9;
+}
+
+.plot-std {
+    width: 100%;
+    background-color: #45b4f9;
+}
+
+#footer-styles {
+    background-color: #002d00;
+}
+
+#footer-styles div {
+    color: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-link {
+        min-width: 80px;
+        text-align: center;
+    }
+}

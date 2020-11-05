@@ -1,0 +1,103 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Info>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "Master.cshtml";
+    var infoItems = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("info").FirstOrDefault();
+    var plotTypes = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("plotTypes").FirstOrDefault();
+}
+
+@Html.Partial("Hero")
+
+<div class="container">
+    <section class="mt-5">
+        <h3>Plot Prices</h3>
+        <!--Plot container-->
+        <div class="row">
+            <!--Plot gui box-->
+            @{
+                var plotPage = "";
+
+                foreach (var plotType in plotTypes.Children)
+                {
+                    var currentPlot = plotType.Value("plotName").ToString();
+
+                    if (Request.QueryString["type"] == currentPlot.ToLower())
+                    {
+                        plotPage = currentPlot.ToLower();
+                    }
+                }
+            }
+            <div class="col-xs-12 col-md-4">
+                <div class="d-flex flex-column">
+                    <div id="plot-area" class="border border-dark p-1 rounded flex-grow-1 ">
+                        <div id="plot-gui-box" class="rounded d-flex flex-column plot-@plotPage">
+                            <div class="d-flex flex-grow-1 align-items-end justify-content-end ">
+                                <p class="m-1">120</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Plot f/m controls-->
+                    <div class="btn-group w-100 d-flex" data-toggle="buttons">
+                        <label class="btn btn-primary active w-50">
+                            <input class="d-none" type="radio" name="options" id="metres" autocomplete="off" checked>Metres
+                        </label>
+                        <label class="btn btn-primary w-50">
+                            <input class="d-none" type="radio" name="options" id="feet" autocomplete="off">Feet
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!--Plot info-->
+            <div class="col d-flex flex-column justify-between">
+                <!--Top part of plot info-->
+                <div class="w-100">
+                    <h4>Plot Information</h4>
+                    @*Plot type buttons to alternate*@
+                    <div class="btn-group w-100" data-toggle="buttons">
+                        @foreach (var plotType in plotTypes.Children)
+                        {
+                            var plotName = plotType.Name.ToLower();
+                            var activeClass = "";
+
+                            if (plotName == Request.QueryString["type"])
+                            {
+                                activeClass = "active";
+                            }
+                            <a href="@Model.Url?type=@plotName"
+                               id="@(plotName)-btn"
+                               class="plot-btn btn btn-sm btn-primary @activeClass ml-0 mr-3 flex-grow-0"
+                               onclick="changePlot('@(plotName)')">
+                                @(plotType.Name)
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5>Disclaimer</h5>
+            <p>The plots vary in length but are mostly the same width.</p>
+            <p">The purpose of the graph shown is to give a rough visual representation of the total relative area that each plot is of the corresponding size.</p>
+            <p>It is for comparison purposes only and does not accurately represent the layout of available plots.</p>
+        </div>
+    </section>
+
+    <section class="my-5">
+        <h3 class="mb-4">Notices</h3>
+        @foreach (var item in infoItems.Children)
+        {
+            var itemDate = item.CreateDate.ToString("dd/mm/yyyy");
+
+            <div class="card border shadow-sm my-5">
+                <div class="card-header d-flex justify-between mdb-color lighten-5">
+                    <p class="flex-grow-1 m-auto">@item.Value("infoItemTitle")</p>
+                    <p class="card-text m-auto text-muted small">@itemDate</p>
+                </div>
+                <div class="card-footer rgba-white-strong border-0 ">
+                    <p class="info-item-text card-text">@item.Value("infoItemText")</p>
+                </div>
+            </div>
+        }
+    </section>
+</div>
